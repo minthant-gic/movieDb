@@ -1,62 +1,56 @@
+'use client'
 import React from 'react';
-import Image from 'next/image';
-import star from '../../public/star.svg';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
-import {data} from "autoprefixer";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
-const Body = () => {
+const Page = () => {
     const getData = async () => {
-        const res = await axios.get('https://yts.mx/api/v2/list_movies.json');
-        return res.data;
-    };
+        const res = await axios.get("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=686b43c2b223431994b45b75dcd20d2b")
+        return res.data
+    }
 
     const { data: response, isError, isSuccess, isLoading } = useQuery({
-        queryKey: ['get', 'list'],
-        queryFn: getData,
+        queryKey: ['get', 'everything'],
+        queryFn: getData
     });
 
-    console.log(response)
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0];
 
     return (
         <div>
             {isLoading && <p>Loading...</p>}
             {isError && <p>Error fetching data</p>}
-            {isSuccess && response && response.movies && (
-                <div>
-                    <div className="flex justify-between border-b mt-2">
-                        <div className="flex justify-center items-center ml-2 mb-2">
-                            <Image src={star} alt="" />
-                            <div className="ml-2 font-bold text-lg">Popular downloads</div>
-                        </div>
-                        <div className="mr-2">
-                            <a
-                                href=""
-                                className="text-blue-600 font-bold underline cursor-pointer"
-                            >
-                                more featured
-                            </a>
-                        </div>
-                    </div>
-                    <div className="flex">
-                        {response.movies.map((movie) => (
-                            <div
-                                key={movie.id}
-                                className="w-1/2 h-56 ml-3 mr-3 mt-3 mb-3 bg-red-200 border-4 border-black"
-                            >
-                                <Image
-                                    src={movie.medium_cover_image} // Use the movie image URL
-                                    alt={movie.title}
-                                    width={500}
-                                    height={300}
-                                />
+            {isSuccess && (
+                <div className="flex flex-wrap">
+                    {response.articles.map((article, index) => {
+                        // Extract the year from the publishedAt field
+                        const publishedYear = new Date(article.publishedAt).getFullYear();
+
+                        return (
+                            <div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+                                <div className="shadow-lg rounded-lg p-2" style={{ height: '100%' }}>
+                                    <img
+                                        src={article.urlToImage}
+                                        alt={article.title}
+                                        className="w-full h-64 object-cover rounded-t-lg"
+                                    />
+                                    <div className="p-4">
+                                        <h2 className="text-4xl font-bold">{article.title}</h2>
+                                        <p className="text-gray-500 text-2xl mt-2">{article.author}</p>
+                                        <p className="mt-2 text-lg">{publishedYear}</p> {/* Display the extracted year */}
+                                        <p className="mt-2">{article.description}</p>
+                                        <a href={article.url} className="text-blue-500 flex justify-end items-end underline">Show more</a>
+                                    </div>
+                                </div>
                             </div>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
             )}
         </div>
     );
 };
 
-export default Body;
+export default Page;
