@@ -6,8 +6,10 @@ import ranking from '../../public/ranking.png';
 import trend from '../../public/trend.svg';
 import person from '../../public/person.svg';
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
 
 const Nav = () => {
+    const router = useRouter()
     return (
         <div className="">
             <div className="flex justify-between border-b">
@@ -17,13 +19,13 @@ const Nav = () => {
                         <Image src={search} alt="" className="w-8 h-8" />
                     </div>
                     <div>
-                        <Image src={fourK} alt="" className="w-8 h-8 ml-2" />
+                        <Image src={fourK} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/4k')}/>
                     </div>
                     <div>
-                        <Image src={ranking} alt="" className="w-8 h-8 ml-2" />
+                        <Image src={ranking} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/ranking')}/>
                     </div>
                     <div>
-                        <Image src={trend} alt="" className="w-8 h-8 ml-2" />
+                        <Image src={trend} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/trend')}/>
                     </div>
                     <div>
                         <Image src={person} alt="" className="w-8 h-8 ml-2 mr-2" />
