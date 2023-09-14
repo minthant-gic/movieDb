@@ -29,7 +29,7 @@ const Page = () => {
     return (
         <div>
             {isLoading && <div className="flex justify-center items-center mt-48 ml-12">
-                <Image src={loading} alt="" />
+                <Image src={loading} alt=""/>
             </div>}
             {isError && <p>Error fetching data</p>}
             {isSuccess && (

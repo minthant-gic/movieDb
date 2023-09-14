@@ -13,7 +13,7 @@ const Nav = () => {
     return (
         <div className="">
             <div className="flex justify-between border-b">
-                <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-2 mb-2"/>
+                <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-2 mb-2" onClick={() => router.push('/')}/>
                 <div className="flex justify-center items-center">
                     <div>
                         <Image src={search} alt="" className="w-8 h-8" />
@@ -25,11 +25,11 @@ const Nav = () => {
                         <Image src={ranking} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/ranking')}/>
                     </div>
                     <div>
-                        <Image src={trend} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/trend')}/>
+                        <Image src={trend} alt="" className="w-8 h-8 ml-2 mr-2" onClick={() => router.push('/trend')}/>
                     </div>
-                    <div>
-                        <Image src={person} alt="" className="w-8 h-8 ml-2 mr-2" />
-                    </div>
+                    {/*<div>*/}
+                    {/*    <Image src={person} alt="" className="w-8 h-8 ml-2 mr-2" />*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>
