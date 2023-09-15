@@ -74,7 +74,7 @@ const Page = () => {
                             totalPages={totalPages}
                             setCurrentPage={setCurrentPage}
                         />
-                        <div className="ml-36">
+                        <div className="ml-40">
                             <Footer/>
                         </div>
                     </div>
