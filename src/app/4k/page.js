@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {useQuery} from "@tanstack/react-query";
 import Nav from "@/app/nav";
@@ -10,20 +10,32 @@ import loading from "../../../public/loading.gif";
 import Footer from "@/app/footer";
 
 const Page = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [movies, setMovies] = useState([]);
+
     const getData = async () => {
-        const res = await axios.get("https://yts.mx/api/v2/list_movies.json?quality=4k&limit=20")
-        return res.data
-    }
+        try {
+            const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?quality-=4k&page=${currentPage}`);
+            setMovies(res.data.data.movies);
+            setTotalPages(Math.ceil(res.data.data.movie_count / res.data.data.limit));
+            setIsLoading(false);
+            setIsError(false);
+        } catch (error) {
+            setIsLoading(false);
+            setIsError(true);
+        }
+    };
 
-    const {data: response, isError, isSuccess, isLoading} = useQuery({
-        queryKey: ['get', 'trend'],
-        queryFn: getData
-    });
+    useEffect(() => {
+        getData();
+    }, [currentPage]);
 
-    const totalPages = 5; // Change this to your desired number of pages
-
-    // Generate an array of page numbers from 1 to totalPages
-    const pageNumbers = Array.from({length: totalPages}, (_, index) => index + 1);
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
     return (
         <div>
 
@@ -31,11 +43,11 @@ const Page = () => {
                 <Image src={loading} alt=""/>
             </div>}
             {isError && <p>Error fetching data</p>}
-            {isSuccess && (
+            {!isLoading && !isError && (
                 <>
                     <Nav/>
                     <div className="flex flex-wrap">
-                        {response.data.movies.map((movie, index) => (
+                        {movies.map((movie, index)=> (
                             <div key={index} className="w-1/2 mt-2">
                                 <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
                                     <a>
@@ -57,11 +69,14 @@ const Page = () => {
                                 </div>
                             </div>
                         ))}
-                        <Pagination/>
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            setCurrentPage={setCurrentPage}
+                        />
                         <div className="ml-36">
                             <Footer/>
                         </div>
-
                     </div>
                 </>
             )}
