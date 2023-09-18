@@ -25,9 +25,9 @@ const Nav = () => {
     return (
         <div className="">
             <div className="flex justify-between border-b">
-                <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-2 mb-2" onClick={() => router.push('/')}/>
+                <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-2 mb-2 cursor-pointer" onClick={() => router.push('/')}/>
                 <div className="flex justify-center items-center">
-                    <div className="sm:hidden">
+                    <div className="">
                         <Image src={search} alt="" className="w-8 h-8" onClick={toggleHandleClick}/>
                     </div>
                     <div className="sm:hidden">

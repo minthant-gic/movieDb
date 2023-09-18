@@ -8,6 +8,7 @@ import Nav from "@/app/nav";
 import Link from "next/link";
 import Pagination from "@/app/pagination";
 import Footer from "@/app/footer";
+import star from "../../../../public/yellowStar.svg";
 
 const Page = () => {
     const {moviesearch} = useParams();
@@ -51,15 +52,37 @@ const Page = () => {
                     <Nav />
                     <div className="flex flex-wrap">
                         {movies.map((movie, index) => (
-                            <div key={index} className="w-1/2 mt-2">
+                            <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
                                 <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
                                     <a>
-                                        <div className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
+                                        <div
+                                            className="relative group shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2 w-fit">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
-                                                src={movie.large_cover_image}
+                                                src={movie.medium_cover_image}
                                                 alt={movie.title}
                                                 className="h-fit w-fit rounded-sm"
                                             />
+                                            <div
+                                                className="absolute inset-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:translate-y-0 scale-y-0 group-hover:scale-y-100 bg-black bg-opacity-50">
+                                                <div className="text-white text-center">
+                                                    <div className="mb-4 mt-12 flex justify-center items-center">
+                                                        <Image src={star} alt="" className="w-6 h-6"/>
+                                                    </div>
+                                                    {movie.rating} / 10
+                                                    <div className="text-2xl font-bold">
+                                                        {movie.genres[0]}
+                                                    </div>
+                                                    <div className="text-2xl font-bold">
+                                                        {movie.genres[1]}
+                                                    </div>
+                                                    <div>
+                                                        <button className="bg-green-500 px-2 py-2 mt-6 rounded-sm">
+                                                            View Detail
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </a>
                                 </Link>
@@ -71,14 +94,16 @@ const Page = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                    <div className="ml-10 sm:mr-96 mr-14">
                         <Pagination
                             currentPage={currentPage}
                             totalPages={totalPages}
                             setCurrentPage={setCurrentPage}
                         />
-                        <div className="ml-40">
-                            <Footer/>
-                        </div>
+                    </div>
+                    <div className="sm:ml-20">
+                        <Footer/>
                     </div>
                 </>
             )}
