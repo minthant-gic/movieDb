@@ -27,8 +27,8 @@ const Pagination = ({currentPage, totalPages, setCurrentPage}) => {
     };
 
     return (
-        <div className="flex justify-center items-center ml-8 mr-8 h-full"> {/* Add 'h-full' to make the parent div full height */}
-            <div className="flex justify-center items-center mt-4 mb-4">
+        <div className="flex justify-center items-center h-full ml-3 mr-3 md:ml-24 lg:ml-36 xl:ml-64">
+            <div className="flex justify-center items-center mt-4 mb-4 sm:ml-56">
                 <nav className="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
                     <a
                         className={`relative inline-flex items-center px-2 py-2 rounded-l-md border ${
@@ -46,7 +46,7 @@ const Pagination = ({currentPage, totalPages, setCurrentPage}) => {
                             onClick={() => handlePageChange(pageNumber)}
                             className={`relative inline-flex items-center px-4 py-2 border ${
                                 pageNumber === currentPage ? 'border-indigo-500 bg-indigo-500 text-white' : 'border-gray-300 bg-white text-gray-700'
-                            } text-sm font-medium hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
+                            } text-sm font-medium hover:bg-indigo-500 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
                         >
                             {pageNumber}
                         </a>

@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {useQuery} from '@tanstack/react-query';
-import Pagination from '@/app/pagination';
-import Link from 'next/link';
-import Image from 'next/image';
-import loading from '../../public/loading.gif';
-import Footer from "@/app/footer";
+'use client'
+import React, {useEffect, useState} from 'react';
+import {useParams} from "next/navigation";
+import axios from "axios";
+import Image from "next/image";
+import loading from "../../../../public/loading.gif";
 import Nav from "@/app/nav";
+import Link from "next/link";
+import Pagination from "@/app/pagination";
+import Footer from "@/app/footer";
 
 const Page = () => {
+    const {moviesearch} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +20,7 @@ const Page = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?page=${currentPage}&limit=24`);
+                const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?page=${currentPage}&query_term=${moviesearch}`);
                 setMovies(res.data.data.movies);
                 setTotalPages(Math.ceil(res.data.data.movie_count / res.data.data.limit));
                 setIsLoading(false);
@@ -30,7 +32,7 @@ const Page = () => {
         };
 
         fetchData();
-    }, [currentPage]);
+    }, [currentPage, moviesearch]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -40,34 +42,21 @@ const Page = () => {
         <div>
             {isLoading && (
                 <div className="flex justify-center items-center mt-48 ml-12">
-                    <Image src={loading} alt=""/>
+                    <Image src={loading} alt="" />
                 </div>
             )}
             {isError && <p>Error fetching data</p>}
             {!isLoading && !isError && (
                 <>
-                    <Nav/>
-                    <div className="border-b">
-                        <div className="hidden sm:block text-center font-bold text-4xl mt-6">
-                            Download YIFY movies: HD smallest size
-                        </div>
-                        <div className="hidden sm:block text-center font-sans text-lg mt-2 ml-36 mr-36 mb-10">
-                            Welcome to the official YTS.MX website. Here you can browse and download YIFY movies in
-                            excellent 720p, 1080p, 2160p 4K and 3D quality, all at the smallest file size. YTS Movies
-                            Torrents.
-                        </div>
-                    </div>
+                    <Nav />
                     <div className="flex flex-wrap">
                         {movies.map((movie, index) => (
-                            <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
+                            <div key={index} className="w-1/2 mt-2">
                                 <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
                                     <a>
-                                        <div
-                                            className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2 w-fit
-                                          ">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <div className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
                                             <img
-                                                src={movie.medium_cover_image}
+                                                src={movie.large_cover_image}
                                                 alt={movie.title}
                                                 className="h-fit w-fit rounded-sm"
                                             />
@@ -87,14 +76,15 @@ const Page = () => {
                             totalPages={totalPages}
                             setCurrentPage={setCurrentPage}
                         />
-                    </div>
-                    <div className="sm:ml-0">
-                        <Footer/>
+                        <div className="ml-40">
+                            <Footer/>
+                        </div>
                     </div>
                 </>
             )}
         </div>
     );
 };
+
 
 export default Page;

@@ -18,7 +18,7 @@ const Page = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?quality-=4k&page=${currentPage}`);
+            const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?quality-=4k&page=${currentPage}&limit=24`);
             setMovies(res.data.data.movies);
             setTotalPages(Math.ceil(res.data.data.movie_count / res.data.data.limit));
             setIsLoading(false);
@@ -38,48 +38,51 @@ const Page = () => {
     };
     return (
         <div>
-
-            {isLoading && <div className="flex justify-center items-center mt-60 ml-12">
-                <Image src={loading} alt=""/>
-            </div>}
-            {isError && <p>Error fetching data</p>}
-            {!isLoading && !isError && (
-                <>
-                    <Nav/>
-                    <div className="flex flex-wrap">
-                        {movies.map((movie, index)=> (
-                            <div key={index} className="w-1/2 mt-2">
-                                <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
-                                    <a>
-                                        <div
-                                            className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
-                                            <img
-                                                src={movie.large_cover_image}
-                                                alt={movie.title}
-                                                className="h-fit w-fit rounded-sm"
-                                            />
+            <div className="flex justify-center w-full h-screen">
+                <div className="w-full max-w-7xl">
+                    {isLoading && <div className="flex justify-center items-center mt-60 ml-12">
+                        <Image src={loading} alt=""/>
+                    </div>}
+                    {isError && <p>Error fetching data</p>}
+                    {!isLoading && !isError && (
+                        <>
+                            <Nav/>
+                            <div className="flex flex-wrap">
+                                {movies.map((movie, index) => (
+                                    <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
+                                        <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
+                                            <a>
+                                                <div
+                                                    className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
+                                                    <img
+                                                        src={movie.large_cover_image}
+                                                        alt={movie.title}
+                                                        className="h-fit w-fit rounded-sm"
+                                                    />
+                                                </div>
+                                            </a>
+                                        </Link>
+                                        <div className="ml-3 text-xs mt-2 font-bold">
+                                            <div>{movie.title}</div>
                                         </div>
-                                    </a>
-                                </Link>
-                                <div className="ml-3 text-xs mt-2 font-bold">
-                                    <div>{movie.title}</div>
-                                </div>
-                                <div className="ml-3 text-xs font-bold text-gray-300">
-                                    <div>{movie.year}</div>
-                                </div>
+                                        <div className="ml-3 text-xs font-bold text-gray-300">
+                                            <div>{movie.year}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    setCurrentPage={setCurrentPage}
+                                />
                             </div>
-                        ))}
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            setCurrentPage={setCurrentPage}
-                        />
-                        <div className="ml-40">
-                            <Footer/>
-                        </div>
-                    </div>
-                </>
-            )}
+                            <div className="">
+                                <Footer/>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

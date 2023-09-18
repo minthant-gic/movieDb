@@ -1,7 +1,7 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import Nav from "@/app/nav";
 import Pagination from "@/app/pagination";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const Page = () => {
 
     const getData = async (page) => {
         try {
-            const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?sort_by=download_count&limit=20&page=${page}`);
+            const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?sort_by=download_count&limit=24&page=${page}`);
             setMovies(res.data.data.movies);
             setTotalPages(Math.ceil(res.data.data.movie_count / res.data.data.limit));
             setIsLoading(false);
@@ -39,49 +39,53 @@ const Page = () => {
 
     return (
         <div>
-            {isLoading && (
-                <div className="flex justify-center items-center mt-52 ml-12">
-                    <Image src={loading} alt="" />
-                </div>
-            )}
-            {isError && <p>Error fetching data</p>}
-            {!isLoading && !isError && (
-                <>
-                    <Nav />
-                    <div className="flex flex-wrap">
-                        {movies.map((movie, index) => (
-                            <div key={index} className="w-1/2 mt-2">
-                                <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
-                                    <a>
-                                        <div
-                                            className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
-                                            <img
-                                                src={movie.large_cover_image}
-                                                alt={movie.title}
-                                                className="h-fit w-fit rounded-sm"
-                                            />
-                                        </div>
-                                    </a>
-                                </Link>
-                                <div className="ml-3 text-xs mt-2 font-bold">
-                                    <div>{movie.title}</div>
-                                </div>
-                                <div className="ml-3 text-xs font-bold text-gray-300">
-                                    <div>{movie.year}</div>
-                                </div>
-                            </div>
-                        ))}
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            setCurrentPage={setCurrentPage}
-                        />
-                        <div className="ml-40">
-                            <Footer/>
+            <div className="flex justify-center w-full h-screen">
+                <div className="w-full max-w-7xl">
+                    {isLoading && (
+                        <div className="flex justify-center items-center mt-52 ml-12">
+                            <Image src={loading} alt=""/>
                         </div>
-                    </div>
-                </>
-            )}
+                    )}
+                    {isError && <p>Error fetching data</p>}
+                    {!isLoading && !isError && (
+                        <>
+                            <Nav/>
+                            <div className="flex flex-wrap">
+                                {movies.map((movie, index) => (
+                                    <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
+                                        <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
+                                            <a>
+                                                <div
+                                                    className="shadow-lg rounded-lg border-4 border-black hover:border-green-400 ml-2 mt-2 mr-2">
+                                                    <img
+                                                        src={movie.large_cover_image}
+                                                        alt={movie.title}
+                                                        className="h-fit w-fit rounded-sm"
+                                                    />
+                                                </div>
+                                            </a>
+                                        </Link>
+                                        <div className="ml-3 text-xs mt-2 font-bold">
+                                            <div>{movie.title}</div>
+                                        </div>
+                                        <div className="ml-3 text-xs font-bold text-gray-300">
+                                            <div>{movie.year}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    setCurrentPage={setCurrentPage}
+                                />
+                            </div>
+                            <div className="sm:ml-0">
+                                <Footer/>
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
