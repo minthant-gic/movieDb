@@ -27,8 +27,11 @@ const Nav = () => {
             <div className="flex justify-between border-b">
                 <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-2 mb-2 cursor-pointer" onClick={() => router.push('/')}/>
                 <div className="flex justify-center items-center">
-                    <div className="">
+                    <div className="sm:hidden">
                         <Image src={search} alt="" className="w-8 h-8" onClick={toggleHandleClick}/>
+                    </div>
+                    <div>
+                        <input type="search" className="border mr-6 w-72 px-2 py-1 rounded-lg hidden sm:block" placeholder="search here"/>
                     </div>
                     <div className="sm:hidden">
                         <Image src={fourK} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/4k')}/>

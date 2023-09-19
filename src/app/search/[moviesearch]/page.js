@@ -43,13 +43,13 @@ const Page = () => {
         <div>
             {isLoading && (
                 <div className="flex justify-center items-center mt-48 ml-12">
-                    <Image src={loading} alt="" />
+                    <Image src={loading} alt=""/>
                 </div>
             )}
             {isError && <p>Error fetching data</p>}
             {!isLoading && !isError && (
                 <>
-                    <Nav />
+                    <Nav/>
                     <div className="flex flex-wrap">
                         {movies.map((movie, index) => (
                             <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
@@ -95,13 +95,12 @@ const Page = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="ml-10 sm:mr-96 mr-14">
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            setCurrentPage={setCurrentPage}
-                        />
-                    </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        setCurrentPage={setCurrentPage}
+                    />
+
                     <div className="sm:ml-20">
                         <Footer/>
                     </div>

@@ -27,7 +27,7 @@ const Pagination = ({currentPage, totalPages, setCurrentPage}) => {
     };
 
     return (
-        <div className="flex justify-center items-center h-full ml-3 mr-3 md:ml-24 lg:ml-36 xl:ml-64">
+        <div className="flex justify-center items-center h-full ml-3 mr-3 md:ml-16 lg:ml-36 xl:ml-64">
             <div className="flex justify-center items-center mt-4 mb-4 sm:ml-56">
                 <nav className="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
                     <a
