@@ -51,7 +51,7 @@ const Page = () => {
                 <>
                     <Nav/>
                     <div className="flex flex-wrap">
-                        {movies.map((movie, index) => (
+                        {movies && movies.map((movie, index) => (
                             <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
                                 <Link legacyBehavior={true} href={`/detail/${movie.id}`}>
                                     <a>

@@ -8,6 +8,7 @@ import person from '../../public/person.svg';
 import Image from "next/image";
 import {useRouter} from 'next/navigation';
 import Link from "next/link";
+import axios from "axios";
 
 const Nav = () => {
     const router = useRouter();
@@ -25,13 +26,15 @@ const Nav = () => {
     return (
         <div className="">
             <div className="flex justify-between border-b">
-                <Image src={Yts} alt="" className="w-24 h-10 mt-2 ml-20 mb-2 cursor-pointer" onClick={() => router.push('/')}/>
-                <div className="flex justify-center items-center mr-16">
+                <Image src={Yts} alt="" className="w-24 h-10 mt-2 sm:ml-20 ml-2 mb-2 cursor-pointer"
+                       onClick={() => router.push('/')}/>
+                <div className="flex justify-center items-center sm:mr-16 ">
                     <div className="sm:hidden">
                         <Image src={search} alt="" className="w-8 h-8" onClick={toggleHandleClick}/>
                     </div>
                     <div>
-                        <input type="search" className="border mr-6 w-72 px-2 py-1 rounded-lg hidden sm:block" placeholder="search here"/>
+                        <input type="search" className="border mr-6 w-72 px-2 py-1 rounded-lg hidden sm:block"
+                               placeholder="search here"/>
                     </div>
                     <div className="sm:hidden">
                         <Image src={fourK} alt="" className="w-8 h-8 ml-2" onClick={() => router.push('/4k')}/>

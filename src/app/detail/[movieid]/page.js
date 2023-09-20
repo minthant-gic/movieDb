@@ -21,15 +21,19 @@ import Link from "next/link";
 const SimilarMovieCard = ({similarMovie}) => {
     return (
         <div className="w-1/2 mt-2 ml-2 sm:w-1/3 sm:flex">
-            <div className="shadow-lg rounded-lg border-4 border-black ml-2 mt-2 mr-2 w-fit h-fit flex">
-                <img
-                    src={similarMovie.medium_cover_image}
-                    alt={similarMovie.title}
-                    width={200}
-                    height={200}
-                    className="h-fit w-fit rounded-sm"
-                />
-            </div>
+            <Link legacyBehavior={true} href={`/detail/${similarMovie.id}`}>
+                <a>
+                    <div className="shadow-lg rounded-lg border-4 border-black ml-2 mt-2 mr-2 w-fit h-fit flex">
+                        <img
+                            src={similarMovie.medium_cover_image}
+                            alt={similarMovie.title}
+                            width={200}
+                            height={200}
+                            className="h-fit w-fit rounded-sm"
+                        />
+                    </div>
+                </a>
+            </Link>
         </div>
     );
 };
@@ -189,21 +193,26 @@ const Page = () => {
                                     <div className="hidden sm:mt-6 sm:flex cursor-pointer">
                                         {similarMovies && similarMovies.map((similarMovie, index) => (
                                             <>
-                                            <SimilarMovieCard key={index} similarMovie={similarMovie}/>
+                                                <SimilarMovieCard key={index} similarMovie={similarMovie}/>
                                             </>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-4 ml-4 hidden sm:flex">
-                                <YouTubeVideo videoId={movie.yt_trailer_code} />
-                                <div className="ml-2">
-                                    <img src={movie.background_image} alt="" width={450} height={240}/>
-                                </div>
-                                <div className="ml-2">
-                                    <img src={movie.background_image_original} alt="" width={450} height={220}/>
+                            <div className="mt-10 ml-4 hidden sm:flex">
+                                <div className="flex h-80">
+                                    <div className="ml-3">
+                                        <YouTubeVideo videoId={movie.yt_trailer_code}/>
+                                    </div>
+                                    <div className="ml-2">
+                                        <img src={movie.background_image} alt="" className="w-96 h-4/5"/>
+                                    </div>
+                                    <div className="ml-2">
+                                        <img src={movie.background_image_original} alt="" className="w-96 h-4/5"/>
+                                    </div>
                                 </div>
                             </div>
+
                             <div className="ml-4">
                                 <div className="text-lg font-bold mt-4">
                                     Plot summary
