@@ -47,7 +47,6 @@ const Page = () => {
             {isError && <p>Error fetching data</p>}
             {!isLoading && !isError && (
                 <>
-                    <Nav/>
                     <div className="border-b">
                         <div className="hidden sm:block text-center font-bold text-4xl mt-6">
                             Download YIFY movies: HD smallest size
