@@ -48,7 +48,7 @@ const Page = () => {
             {!isLoading && !isError && (
                 <>
                     <div className="border-b">
-                        <div className="hidden sm:block text-center font-bold text-4xl mt-6">
+                        <div className="hidden sm:block text-center font-bold text-4xl mt-8">
                             Download YIFY movies: HD smallest size
                         </div>
                         <div className="hidden sm:block text-center font-sans text-lg mt-2 ml-36 mr-36 mb-10">
@@ -57,7 +57,7 @@ const Page = () => {
                             Torrents.
                         </div>
                     </div>
-                    <div className="flex flex-wrap">
+                    <div className="flex flex-wrap relative">
                         {movies.map((movie, index) => (
                             <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
                                 <Link legacyBehavior={true} href={`/detail/${movie.id}`}>

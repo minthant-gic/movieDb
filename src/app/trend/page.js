@@ -40,6 +40,7 @@ const Page = () => {
 
     return (
         <div>
+            <Nav/>
             <div className="flex justify-center w-full h-screen">
                 <div className="w-full max-w-7xl">
                     {isLoading && (
@@ -50,7 +51,6 @@ const Page = () => {
                     {isError && <p>Error fetching data</p>}
                     {!isLoading && !isError && (
                         <>
-                            <Nav/>
                             <div className="flex flex-wrap">
                                 {movies.map((movie, index) => (
                                     <div key={index} className="w-1/2 mt-2 sm:w-1/6 md:w-1/4 lg:w-1/6">
@@ -67,7 +67,8 @@ const Page = () => {
                                                     <div
                                                         className="absolute inset-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-full group-hover:translate-y-0 scale-y-0 group-hover:scale-y-100 bg-black bg-opacity-50">
                                                         <div className="text-white text-center">
-                                                            <div className="mb-4 mt-12 flex justify-center items-center">
+                                                            <div
+                                                                className="mb-4 mt-12 flex justify-center items-center">
                                                                 <Image src={star} alt="" className="w-6 h-6"/>
                                                             </div>
                                                             {movie.rating} / 10
@@ -78,7 +79,8 @@ const Page = () => {
                                                                 {movie.genres[1]}
                                                             </div>
                                                             <div>
-                                                                <button className="bg-green-500 px-2 py-2 mt-6 rounded-sm">
+                                                                <button
+                                                                    className="bg-green-500 px-2 py-2 mt-6 rounded-sm">
                                                                     View Detail
                                                                 </button>
                                                             </div>
