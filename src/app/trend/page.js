@@ -1,7 +1,6 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useQuery} from "@tanstack/react-query";
 import Nav from "@/app/nav";
 import Pagination from "@/app/pagination";
 import Link from "next/link";

@@ -6,7 +6,6 @@ const Video = ({ videoId }) => {
         height: '257',
         width: '450',
         playerVars: {
-            // You can customize player parameters here, like autoplay, controls, etc.
             autoplay: 0,
         },
     };

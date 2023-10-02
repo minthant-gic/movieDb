@@ -4,14 +4,11 @@ import search from '../../public/search.svg';
 import fourK from '../../public/4k.png';
 import ranking from '../../public/ranking.png';
 import trend from '../../public/trend.svg';
-import person from '../../public/person.svg';
 import Image from "next/image";
 import {useRouter} from 'next/navigation';
 import Link from "next/link";
 import axios from "axios";
 import {useQuery} from "@tanstack/react-query";
-import download from "../../public/download.svg";
-import star from "../../public/yellowStar.svg";
 
 const Nav = () => {
     const router = useRouter();
@@ -70,7 +67,6 @@ const Nav = () => {
                                placeholder="Quick search" onMouseDown={toggleHandleSearchClick} value={searchText}
                                onChange={(e) => {
                                    setSearchText(e.target.value);
-                                   // Enable fetching when the user types something
                                    setIsEnabled(true);
                                }}/>
                         <div

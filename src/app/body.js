@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {useQuery} from '@tanstack/react-query';
 import Pagination from '@/app/pagination';
 import Link from 'next/link';
 import Image from 'next/image';
 import loading from '../../public/loading.gif';
 import Footer from "@/app/footer";
-import Nav from "@/app/nav";
 import star from "../../public/yellowStar.svg"
 
 const Page = () => {
@@ -44,7 +42,9 @@ const Page = () => {
                     <Image src={loading} alt=""/>
                 </div>
             )}
-            {isError && <p>Error fetching data</p>}
+            {isError && <div className="flex justify-center items-center mt-80">
+                Error Fetching,Please Check Internet
+            </div>}
             {!isLoading && !isError && (
                 <>
                     <div className="border-b">
